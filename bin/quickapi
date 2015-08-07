@@ -1,7 +1,8 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --harmony 
 
 var util = require('util'),
     fs = require('fs'),
+    path = require('path'),
 
     app = require('koa')(),
     serve = require('koa-static'),
@@ -18,7 +19,7 @@ var util = require('util'),
 
 fs.exists(serverPath, (exists) => {
     if (exists) {
-        api = require(serverPath);
+        api = require(path.relative(__dirname, serverPath));
     }
 });
 
@@ -32,11 +33,10 @@ app.use(function*( next ) {
     yield next;
 
     util.log("请求结束");
-    console.log("");
+    console.log("--------------------------------------------------");
 });
 
 app.use(function*( next ) {
-
     if (api && this.path.indexOf(apiPrefix + "/") === 0) {
 
         if (this.method == 'GET' || this.method == 'POST') {
@@ -65,7 +65,8 @@ app.use(function*( next ) {
 });
 
 app.on('error', function( err ) {
-    util.log('服务器错误：' + err);
+    util.log('服务器错误：');
+    util.log( err );
     var err = new Error('服务器错误：' + err);
     err.status = 505;
     throw err;

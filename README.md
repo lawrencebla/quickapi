@@ -22,7 +22,7 @@
 | --- | --- |
 | context | koa中的context参数 |
 | next | koa中的next参数 |
-| path | **去掉api根路径 **后的访问路径 |
+| path | **去掉api根路径** 后的访问路径 |
 
 * 使用 [path-to-regexp](https://github.com/pillarjs/path-to-regexp) 解析参数，URL参数格式可以参考该工具。
 
@@ -57,6 +57,16 @@ quickapi -p 3003 -g -s ./example/server/generators/server.js -f ./example/src/
 
 
 ## 例子
+
+### 从github中下载完整实例代码
+```
+git clone https://github.com/lawrencebla/quickapi.git
+```
+
+### 切换到实例代码目录
+```
+cd quickapi
+```
 
 ### 开启服务
 
