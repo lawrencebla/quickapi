@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+
+var util = require('util'),
+    fs = require('fs'),
+
+    app = require('koa')(),
+    serve = require('koa-static'),
+    argv = require('optimist')
+    .boolean('psfgx')
+    .argv,
+
+    api = null,
+    serverPath = argv.s || "./server/server.js",
+    filePath = argv.f || ".",
+    apiPrefix = argv.x || "/api",
+    port = argv.p || 8170;
+
+
+fs.exists(serverPath, (exists) => {
+    if (exists) {
+        api = require(serverPath);
+    }
+});
+
+
+app.use(function*( next ) {
+    util.log("进入请求");
+    util.log("path:" + this.path);
+    util.log("header: ");
+    util.log(this.header);
+
+    yield next;
+
+    util.log("请求结束");
+    console.log("");
+});
+
+app.use(function*( next ) {
+
+    if (api && this.path.indexOf(apiPrefix + "/") === 0) {
+
+        if (this.method == 'GET' || this.method == 'POST') {
+
+        	var subPath = this.path.substring(apiPrefix.length);
+        	if( argv.g ) {
+            	yield* api( this, next, subPath );
+            	return;
+        	} else {
+        		api( this, next, subPath );
+        		return;
+        	}
+
+        }
+        yield* next;
+    } else {
+        yield serve(filePath).call(this, next);
+    }
+    return next;
+
+});
+
+app.use(function*( next ) {
+    this.body = "无效的请求: " + this.path;
+    util.log("无效的请求: " + this.path);
+});
+
+app.on('error', function( err ) {
+    util.log('服务器错误：' + err);
+    var err = new Error('服务器错误：' + err);
+    err.status = 505;
+    throw err;
+});
+
+app.listen(port);
