@@ -42,7 +42,7 @@ npm install -g quickapi
 quickapi
 ```
 ```
-quickapi -p 3003 -g -s ./example/server/generators/server.js -f ./example/src/
+quickapi -p 3003 -g -s ./server/genera\tors/server.js -f ./src/
 ```
 
 ## CLI 配置
@@ -60,12 +60,12 @@ quickapi -p 3003 -g -s ./example/server/generators/server.js -f ./example/src/
 
 ### 从github中下载完整实例代码
 ```
-git clone https://github.com/lawrencebla/quickapi.git
+git clone https://github.com/lawrencebla/quickapi-example.git
 ```
 
 ### 切换到实例代码目录
 ```
-cd quickapi
+cd quickapi-example
 ```
 
 ### 开启服务
@@ -73,13 +73,13 @@ cd quickapi
 * 不使用generator
 
 ```
-npm run example_common
+quickapi example_common
 ```
 
 * 使用generator
 
 ```
-npm run example_generators
+quickapi example_generators
 ```
 
 ### 查看文件测试系统
@@ -93,4 +93,4 @@ npm run example_generators
 * [localhost:3003/api/book/123](http://localhost:3003/api/book/123)
 
 
-更多信息请查看quickapi的[example目录](./example)
+更多信息请查看[quickapi-example](https://github.com/lawrencebla/quickapi-example)仓库

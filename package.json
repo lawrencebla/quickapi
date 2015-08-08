@@ -1,11 +1,9 @@
 {
     "name": "quickapi",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "启动静态服务器及测试API Server",
     "main": "index.js",
     "scripts": {
-        "example_generators": "node --harmony ./bin/quickapi -p 3003 -g -s ./example/server/generators/server.js -f ./example/src/",
-        "example_common": "node --harmony ./bin/quickapi -p 3003 -s ./example/server/common/server.js -f ./example/src/",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "bin": {
@@ -22,9 +20,5 @@
         "koa": "^0.21.0",
         "koa-static": "^1.4.9",
         "optimist": "^0.6.1"
-    },
-    "devDependencies": {
-        "koa-router": "^5.1.2",
-        "path-to-regexp": "^1.2.0"
     }
 }
